@@ -2,6 +2,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
+const Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/script.js'),
@@ -11,6 +13,7 @@ module.exports = {
         filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, '../dist')
     },
+
     devtool: 'source-map',
     plugins:
     [
@@ -23,7 +26,9 @@ module.exports = {
             template: path.resolve(__dirname, '../src/index.html'),
             minify: true
         }),
-        new MiniCSSExtractPlugin()
+        new MiniCSSExtractPlugin({
+        }),
+        new Dotenv(),
     ],
     module:
     {
