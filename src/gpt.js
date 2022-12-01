@@ -1,30 +1,49 @@
 const { Configuration, OpenAIApi } = require("openai");
-const prompt = "Your task is to answer questions correctly. You have access to a Javascript interpreter, so if you are not able to answer a question from memory, you can write a program that will answer the question. Always write your answer as a valid Javascript program, with helpful comments.\n\nBegin.\n\nQuestion: What is 37593 * 67?\nAnswer:\n```\n// Multiply the numbers\n(37593 * 67)\n```\n\nQuestion: What is the id of Github user aneesha99?\nAnswer:\n```\nconst APIResponse = await fetch('https://api.github.com/users/aneesha99');\nconst gitHubUser = await APIResponse.json();\n(gitHubUser.login)\n```\n\nQuestion: What year was the American president George Washington born?\nAnswer:\n```\n(1732)\n```\n";
+import {colorPrompt, furnitureColor} from './prompts.js'
 const key = process.env.OPENAI_API_KEY;
 
 export async function run_gpt(user_input) {
     const configuration = new Configuration({
     apiKey: key,
     });
+    const gptResponses = {};
 
-    const fileData = prompt.concat("\nQuestion: ", user_input, "\nAnswer:\n```");
+    const colorPalette = colorPrompt.concat("\nQuestion: What are four different colors that belong together in a room that can be described as '", user_input, "'?\nAnswer:\n```");
 
     const openai = new OpenAIApi(configuration);
 
     try {
+        // Get color palette
         const completion = await openai.createCompletion({
             model: "text-davinci-002",
-            prompt: fileData,
+            prompt: colorPalette,
             temperature: 0,
             max_tokens: 512,
             stop: '```',
             });
+        gptResponses['color-palette'] = completion.data.choices[0].text.trim();
 
-        let output = eval(completion.data.choices[0].text.trim());
-        return output;
+        const selectFurnitureColor = furnitureColor.concat("\nQuestion: What colors best suits a table, bed, chair, shelf, beanbag, bookshelf, and walls of a room that can be described as '", user_input, "'? Allowed colors are ", gptResponses['color-palette'], "\nAnswer:\n```");
+        // Get furniture colors 
+        const completion2 = await openai.createCompletion({
+            model: "text-davinci-002",
+            prompt: selectFurnitureColor,
+            temperature: 0,
+            max_tokens: 512,
+            stop: '```',
+            });
+        const furnitureResponse = completion2.data.choices[0].text.trim();
+        gptResponses['wall-color'] = furnitureResponse.split('walls: ')[1].split(',')[0];
+        gptResponses['bed-color'] = furnitureResponse.split('bed: ')[1].split(',')[0];
+        gptResponses['table-color'] = furnitureResponse.split('table: ')[1].split(',')[0];
+        gptResponses['chair-color'] = furnitureResponse.split('chair: ')[1].split(',')[0];
+        gptResponses['shelf-color'] = furnitureResponse.split('shelf: ')[1].split(',')[0];
+        gptResponses['beanbag-color'] = furnitureResponse.split('beanbag: ')[1].split(',')[0];
+        gptResponses['bookshelf-color'] = furnitureResponse.split('bookshelf: ')[1].split(',')[0];
+
+        return gptResponses;
         }
     catch (error) {
-        console.log('key: ', key);
         if (error.response) {
             console.log(error.response.status);
             console.log(error.response.data);
