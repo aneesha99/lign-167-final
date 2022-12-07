@@ -1,3 +1,5 @@
+/* This file comes from https://github.com/designcourse/threejs-webpack-starter */
+
 const path = require('path')
 const { merge } = require('webpack-merge')
 const commonConfiguration = require('./webpack.common.js')

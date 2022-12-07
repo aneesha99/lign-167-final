@@ -1,3 +1,5 @@
+/* This file comes from https://github.com/designcourse/threejs-webpack-starter */
+
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
