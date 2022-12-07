@@ -1,3 +1,5 @@
+/* https://replit.com/@SergeyKarayev/gptpy used as reference for this file */
+
 const { Configuration, OpenAIApi } = require("openai");
 import {colorPrompt, furnitureColor, furnitureType} from './prompts.js'
 const key = process.env.OPENAI_API_KEY;
