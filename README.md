@@ -1,6 +1,8 @@
 ## Citations
 Code: https://github.com/designcourse/threejs-webpack-starter - used the three files under 'bundler' to set up webpack to be able to run my application in a web browser.
+
 Code: https://replit.com/@SergeyKarayev/gptpy - referenced to understand how to make calls to the GPT-3 API in gpt.js
+
 Models: Funiture models that I did not create myself were downloaded from PolyHaven and CGTrader. PolyHaven allows use of its models for any purpose and without attribution. CGTrader models I downloaded are also allowed to be used commercially.
 
 ## Setup
