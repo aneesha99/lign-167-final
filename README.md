@@ -18,3 +18,5 @@ Run the command <code> npm run dev </code> on the command line to start the app.
 After entering a phrase and clicking 'Create Design', the designed room will be rendered in typically ~30 seconds.
 Once the room has loaded, you can use your mouse to zoom/rotate around the room.
 For examples of the app being used, look through examples/examples.md
+
+In addition to describing a general aesthetic like "warm and rustic", you can also try broad concepts like "fiery" and "mindfulness" for more variety. 
