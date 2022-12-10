@@ -16,4 +16,5 @@ OPENAI_API_KEY=my-token
 ## Running the app
 Run the command <code> npm run dev </code> on the command line to start the app.
 After entering a phrase and clicking 'Create Design', the designed room will be rendered in typically ~30 seconds.
+Once the room has loaded, you can use your mouse to zoom/rotate around the room.
 For examples of the app being used, look through examples/examples.md
